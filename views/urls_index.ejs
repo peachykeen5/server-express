@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <% include ./partials/_header %>
+</head>
+
+<body>
+    <h1>TinyApp</h1>
+    <ul>
+        <table>
+            <tr>
+                <th> Shortlink </th>
+                <th> URL </th>
+            </tr>
+            <% Object.keys(urls).forEach(function(url) { %>
+
+                <tr>
+                    <td>
+                        <%= url %> -
+                    </td>
+                    <td>
+                        <%= urls[url] %>
+
+                            <% }); %>
+                    </td>
+                </tr>
+        </table>
+        <p> <a href="www.google.ca"</a> Link for Shortening URLs</p>
+    </ul>
+</body>
+
+</html>

@@ -44,7 +44,7 @@ app.post("/urls", (req, res) => {
     let shortURL = generateRandomString();
     urlDatabase[shortURL] = longURL["longURL"];
     //console.log(urlDatabase); // debug statement to see POST parameters
-    res.redirect("/urls/" + shortURL); // Respond with 'Ok' (we will replace this)
+    res.redirect("/urls/"); // Respond with 'Ok' (we will replace this)
 });
 
 app.post("/urls/:id/delete", (req, res) => {
@@ -58,13 +58,10 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.post("/urls/:id", (req, res) => {
-    console.log(req);
+
     let newURL = req.body.NewURL
     urlDatabase[req.params.id] = newURL
-    console.log(urlDatabase);
-    //let newURL = (req.body);
-    ///let shortURL = urlDatabase[req.params.id];
-    //for the shortURL that was called, update the associated longURL
+
     res.redirect("/urls");
 });
 

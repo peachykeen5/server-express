@@ -4,7 +4,21 @@
 <head>
     <title>TinyApp</title>
 </head>
-<body>
 
+<body>
+    <p>
+        <% if (!locals.username) { %>
+            <form action="/login" method="POST">
+                <input type="text" value="<%= locals.username %>" name="username" id="frm1_submit" />
+                <input type="submit" value="Login">
+            </form>
+            <% } else { %>
+                <%= username %>
+                    <form action="/logout" method="POST">
+                        <input type="submit" value="Logout">
+                    </form>
+                    <% } %>
+    </p>
 </body>
+
 </html>

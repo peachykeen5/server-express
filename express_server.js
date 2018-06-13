@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 
 var app = express();
 
-var PORT = 8080; // default port 8080
+var PORT = 8080;
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
@@ -53,15 +53,15 @@ app.get("/u/:shortURL", (req, res) => {
 app.post("/login", (req, res) => {
     var username = req.body.username;
     res.cookie('username', username);
-    res.redirect("/urls");// Respond with 'Ok' (we will replace this)
+    res.redirect("/urls");
 });
 
 app.post("/urls", (req, res) => {
     let longURL = (req.body);
     let shortURL = generateRandomString();
     urlDatabase[shortURL] = longURL["longURL"];
-    //console.log(urlDatabase); // debug statement to see POST parameters
-    res.redirect("/urls/"); // Respond with 'Ok' (we will replace this)
+
+    res.redirect("/urls/"); 
 });
 
 app.post("/urls/:id/delete", (req, res) => {
@@ -79,15 +79,9 @@ app.post("/urls/:id", (req, res) => {
 
 app.post("/logout", (req, res) => {
     res.clearCookie("username");
-    res.redirect("/urls");// Respond with 'Ok' (we will replace this)
+    res.redirect("/urls");
 });
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}!`);
 });
-
-//if (!username) {
-//    show login form and button
-//} else {
-//    show username
-//}

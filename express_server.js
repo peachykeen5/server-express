@@ -19,6 +19,12 @@ var urlDatabase = {
     "9sm5xK": "http://www.google.com"
 };
 
+app.post("/login", (req, res) => {
+    var username = req.body.username;
+    res.cookie('Username', username);
+    res.redirect("/urls");// Respond with 'Ok' (we will replace this)
+});
+
 app.get("/urls", (req, res) => {
     let templateVars = {
         urls: urlDatabase
@@ -64,7 +70,6 @@ app.post("/urls/:id", (req, res) => {
 
     res.redirect("/urls");
 });
-
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}!`);

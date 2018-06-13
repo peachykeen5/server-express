@@ -5,8 +5,8 @@
     <title>TinyApp</title>
 </head>
 <body>
-        <form action="/login" method="get">
-            <input type="text" value="Username" name="Username" id="frm1_submit" />
+        <form action="/login" method="POST">
+            <input type="text" value="<%= locals.username %>" name="username" id="frm1_submit" />
             <input type="submit" value="Login">
         </form>
 </body>

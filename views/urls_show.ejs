@@ -2,18 +2,26 @@
 <html lang="en">
 
 <head>
-        <% include ./partials/_header %>
+    <% include ./partials/_header %>
 </head>
 
 <body>
     <h1>TinyApp</h1>
     <p>
-        <li>
-            <%= longURL %> 
-        </li>
-        <li>
-            <%= shortURL %>
-        </li>
+        <table>
+            <tr>
+                <th> Long URL: </th>
+                <th> Short URL: </th>
+            </tr>
+            <tr>
+                <td>
+                    <%= longURL %>
+                </td>
+                <td>
+                    <%= shortURL %>
+                </td>
+            </tr>
+        </table>
     </p>
 </body>
 

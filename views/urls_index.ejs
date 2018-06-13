@@ -2,33 +2,38 @@
 <html lang="en">
 
 <head>
-        <% include ./partials/_header %>
+    <% include ./partials/_header %>
 </head>
 
 <body>
-    <h1>TinyApp</h1>
+    <h1 style="color:rgb(4, 65, 83);font-size:30px;">TinyApp</h1>
     <ul>
-        <table>
-            <tr>
+        <table border="1" width="auto" height="70px" bgcolor="#0C2121">
+            <tr bgcolor="#16A09E">
                 <th> Shortlink </th>
                 <th> URL </th>
+                <th> Edit Link</th>
+                <th> Remove </th>
             </tr>
             <% Object.keys(urls).forEach(function(url) { %>
-
-                <tr>
+                <tr bgcolor="#B0EEEC">
                     <td>
                         <%= url %> -
                     </td>
                     <td>
                         <%= urls[url] %>
-
-                            <% }); %>
+                    </td>
+                    <td>
+                        <form method="GET" action="/urls/<%= url %>/"><input type="submit" value="EDIT"></form>
+                    </td>
+                    <td>
+                       <form method="POST" action="/urls/<%= url %>/delete"><input type="submit" value="DELETE"></form>
+                        <% }); %>
                     </td>
                 </tr>
         </table>
-        <p> <a href="www.google.ca"</a> Link for Shortening URLs</p>
+        
     </ul>
-    <form method="POST" action="/urls/9sm5xK/delete">...</form>
 </body>
 
 </html>

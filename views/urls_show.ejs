@@ -8,17 +8,20 @@
 <body>
     <h1>TinyApp</h1>
     <p>
-        <table>
-            <tr>
-                <th> Long URL: </th>
+        <table border="1" width="auto" height="70px" bgcolor="#0C2121">
+            <tr bgcolor="#16A09E">
                 <th> Short URL: </th>
+                <th> Update URL: </th>
             </tr>
-            <tr>
-                <td>
-                    <%= longURL %>
-                </td>
+            <tr bgcolor="#B0EEEC">
                 <td>
                     <%= shortURL %>
+                </td>
+                <td>
+                    <form method="POST" action="/urls/<%=shortURL%>">
+                        <input type="text" name="NewURL" value= <%= longURL %> >
+                        <button ="button">Update</button>
+                    </form>
                 </td>
             </tr>
         </table>

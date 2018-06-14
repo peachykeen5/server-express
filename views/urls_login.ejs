@@ -10,11 +10,27 @@
 </head>
 
 <body>
-        <form action="/login" method="POST">
-            <input type="text" value="<%= locals.user_id %>" name="user_id" id="frm1_submit" />
-            <input type="password" value="password" name="password">
-            <input type="submit" value="Login">
-        </form>
+    <div class="page-header" style="font-family: courier; margin-left:150px;">
+        <h1>TinyApp
+            <br>
+            <small>Where we shrink your link!</small>
+        </h1>
+    </div>
+    <div class="page-header" style="font-family:courier; size:14px; margin-left:150px;">
+        <h3>Login</h3>
+    </div>
+    <form method="POST" action="/login" style="margin-left:150px; margin-right:150px;">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="email address">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" value="password" name="password" placeholder="Password">
+        </div>
+        <input type="submit" class="btn btn-info" name="login" value="Login">
+        </button>
+    </form>
 </body>
 
 </html>

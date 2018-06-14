@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <% include ./partials/_header %>
+   
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
             crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
@@ -10,8 +10,10 @@
 </head>
 
 <body>
-    <div class="page-header" style="font-family: courier">
-        <h1>TinyApp <br>
+        <% include ./partials/_header %>
+    <div class="page-header" style="font-family: courier; margin-left:150px;">
+        <h1>TinyApp
+            <br>
             <small>Where we shrink your link!</small>
         </h1>
     </div>
@@ -30,7 +32,9 @@
                     <% Object.keys(urls).forEach(function(url) { %>
                         <tr bgcolor="#B0EEEC">
                             <th scope="row">
-                                <a href= <%= urls[url] %>><%= url %> </a>
+                                <a href="<%=urls[url] %>">
+                                    <%= url %>
+                                </a>
                             </th>
                             <td>
                                 <%= urls[url] %>
@@ -58,4 +62,4 @@
     </ul>
 </body>
 
-</html>
+</html> 

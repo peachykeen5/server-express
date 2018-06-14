@@ -22,7 +22,7 @@ function generateRandomString() {
 function findUserByEmail(email) {
     for (id in users) {
         if (email === users[id]['email']) {
-            return user[id];
+            return users[id];
         }
     }
 }
@@ -36,7 +36,7 @@ const users = {
     "userRandomID": {
         id: "userRandomID",
         email: "user@example.com",
-        password: "purple-monkey-dinosaur"
+        password: "1234"
     },
     "user2RandomID": {
         id: "user2RandomID",
@@ -53,7 +53,7 @@ app.get("/urls", (req, res) => {
     res.render("urls_index", templateVars);
 });
 
-app.get("/urls/login", (req, res) => {
+app.get("/login", (req, res) => {
     res.render("urls_login");
 });
 
@@ -112,9 +112,16 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    let user = (req.body.user_id)
-    res.cookie('user_id', user);
-    res.redirect("/urls");
+    let user = findUserByEmail(req.body.email);
+    if (!req.body.email || !req.body.password) {
+        res.redirect("/login");
+    }
+    else if (req.body.password === user['password']) {
+        res.cookie('user_id', user['id']);
+        res.redirect("/urls");
+    } else {
+        res.redirect("/register");
+    }
 });
 
 app.post("/urls", (req, res) => {
@@ -130,16 +137,14 @@ app.post("/urls/:id/delete", (req, res) => {
 });
 
 app.post("/urls/:id", (req, res) => {
-
     let newURL = req.body.NewURL
     urlDatabase[req.params.id] = newURL
-
     res.redirect("/urls");
 });
 
 app.post("/logout", (req, res) => {
-    res.clearCookie("user_id", users);
-    res.redirect("/urls/login");
+    res.clearCookie("email", users);
+    res.redirect("/login");
 });
 
 app.listen(PORT, () => {

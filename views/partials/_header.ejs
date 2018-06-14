@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<p>
+    <% if (!locals.user) { %>
 
-<head>
-    <title>TinyApp</title>
-</head>
-
-<body>
-    <p>
-        <% if (!locals.user) { %>
-        <form action="/logout" method="POST">
-            <input type="submit" value="Logout">
+        <form action="/login" method="GET">
+            <input type="submit" value="Login">
         </form>
-        <% } %>
+        <form action="/register" method="GET">
+            <input type="submit" value="Register">
+        </form>
 
-    </p>
-</body>
 
-</html>
+        <% } else { %>
+            <%= locals.user_id %>
+
+                <form action="/logout" method="POST">
+                    <input type="submit" value="Logout">
+                </form>
+                <% } %>
+
+
+
+</p>

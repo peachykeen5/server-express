@@ -11,13 +11,16 @@
 </head>
 
 <body>
-    <div class="page-header">
+    <div class="page-header" style="font-family: courier; margin-left:150px;">
         <h1>TinyApp
-            <small>Where shrink your link!</small>
+            <br>
+            <small>Where we shrink your link!</small>
         </h1>
     </div>
+    <div class="page-header" style="font-family:courier; size:14px; margin-left:150px;">
     <h3>Register</h3>
-    <form method="POST" action="/register">
+    </div>
+    <form method="POST" action="/register" style="margin-left:150px; margin-right:150px;">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="email address">
@@ -27,7 +30,7 @@
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <input type="submit" class="btn btn-primary" name="register" value="register">
+        <input type="submit" class="btn btn-info" name="register" value="register">
         </button>
     </form>
 </body>

@@ -3,42 +3,58 @@
 
 <head>
     <% include ./partials/_header %>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+            crossorigin="anonymous">
 </head>
 
 <body>
-    <h1 style="color:rgb(4, 65, 83);font-size:30px;">TinyApp</h1>
+    <div class="page-header">
+        <h1>TinyApp <br>
+            <small>Where we shrink your link!</small>
+        </h1>
+    </div>
     <ul>
-        <table border="1" width="auto" height="70px" bgcolor="#0C2121">
-            <tr bgcolor="#16A09E">
-                <th> Shortlink </th>
-                <th> URL </th>
-                <th> Edit Link</th>
-                <th> Remove </th>
-            </tr>
-            <% Object.keys(urls).forEach(function(url) { %>
-                <tr bgcolor="#B0EEEC">
-                    <td>
-                        <%= url %>
-                    </td>
-                    <td>
-                        <%= urls[url] %>
-                    </td>
-                    <td>
-                        <form method="GET" action="/urls/<%= url %>/">
-                            <input type="submit" value="EDIT">
-                        </form>
-                    </td>
-                    <td>
-                        <form method="POST" action="/urls/<%= url %>/delete">
-                            <input type="submit" value="DELETE">
-                        </form>
-                        <% }); %>
-                    </td>
-                </tr>
-        </table>
-        <form action="/urls/new" method="get">
-            <input type="submit" value="Create new Shortlink" name="Submit" id="frm1_submit" />
-        </form>
+        <div class="container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr bgcolor="#16A09E">
+                        <th scope="col"> Shortlink </th>
+                        <th scope="col"> URL </th>
+                        <th scope="col"> Edit Link</th>
+                        <th scope="col"> Remove </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% Object.keys(urls).forEach(function(url) { %>
+                        <tr bgcolor="#B0EEEC">
+                            <th scope="row">
+                                <%= url %>
+                            </th>
+                            <td>
+                                <%= urls[url] %>
+                            </td>
+                            <td>
+                                <form method="GET" action="/urls/<%= url %>/">
+                                    <input type="submit" class="btn btn-info" value="EDIT">
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="POST" action="/urls/<%= url %>/delete">
+                                    <input type="submit" class="btn btn-danger" value="DELETE">
+                                    </button>
+                                </form>
+                                <% }); %>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+            <form action="/urls/new" method="get">
+                <input type="submit" class="btn btn-success" value="Create a new shortlink">
+                </button>
+            </form>
     </ul>
 </body>
 

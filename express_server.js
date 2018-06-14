@@ -27,11 +27,6 @@ function findUserByEmail(email) {
     }
 }
 
-var urlDatabase = {
-    "b2xVn2": "http://www.lighthouselabs.ca",
-    "9sm5xK": "http://www.google.com"
-};
-
 const users = {
     "userRandomID": {
         id: "userRandomID",
@@ -44,6 +39,17 @@ const users = {
         password: "dishwasher-funk"
     }
 }
+
+var urlDatabase = {
+    "b2xVn2": {
+        longURL: "http://www.lighthouselabs.ca",
+        userID: "userRandomID"
+    },
+    "9sm5xK": {
+        longURL: "http://www.google.com",
+        userID: "user2RandomID"
+    }
+};
 
 app.get("/urls", (req, res) => {
     let templateVars = {
@@ -62,7 +68,10 @@ app.get("/urls/new", (req, res) => {
         urls: urlDatabase,
         user: users[req.cookies["user_id"]],
     };
-    res.render("urls_new");
+    if (!req.cookies["user_id"]) {
+        res.redirect("/login");
+    }
+    res.render("urls_new", templateVars);
 });
 
 app.get("/urls/:id", (req, res) => {
@@ -115,8 +124,7 @@ app.post("/login", (req, res) => {
     let user = findUserByEmail(req.body.email);
     if (!req.body.email || !req.body.password) {
         res.redirect("/login");
-    }
-    else if (req.body.password === user['password']) {
+    } else if (req.body.password === user['password']) {
         res.cookie('user_id', user['id']);
         res.redirect("/urls");
     } else {
@@ -125,6 +133,7 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
+    console.log(req)
     let longURL = (req.body);
     let shortURL = generateRandomString();
     urlDatabase[shortURL] = longURL["longURL"];

@@ -32,12 +32,12 @@
                     <% Object.keys(urls).forEach(function(url) { %>
                         <tr bgcolor="#B0EEEC">
                             <th scope="row">
-                                <a href="<%=urls[url] %>">
+                                <a href="<%=urls[url]["longURL"] %>">
                                     <%= url %>
                                 </a>
                             </th>
                             <td>
-                                <%= urls[url] %>
+                                <%= urls[url]["longURL"] %>
                             </td>
                             <td>
                                 <form method="GET" action="/urls/<%= url %>/">

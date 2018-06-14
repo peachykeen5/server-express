@@ -10,32 +10,40 @@
 </head>
 
 <body>
-    <h1>TinyApp</h1>
+    <div style="font-family: courier">
+        <h1>TinyApp</h1>
+    </div>
     <p>
-        <table class="table table-bordered">
-            <thead>
-                <tr bgcolor="#16A09E">
-                    <th scope="col"> Shortlink </th>
-                    <th scope="col"> LongURL </th>
-                    <th scope="col"> Update Link </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr bgcolor="#B0EEEC">
-                    <th scope="row">
-                        <%= shortURL %>
-                    </th>
-                    <td>
-                        <form method="POST" action="/urls/<%=shortURL%>">
-                            <input type="text" name="NewURL" value= <%= longURL %>>
-                        </form>
-                    </td>
-                    <td>
-                            <button type="button" class="btn btn-success">Update</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div style="margin: 50px">
+            <table class="table table-bordered">
+                <div>
+                    <thead>
+                        <tr bgcolor="#16A09E">
+                            <th scope="col"> Shortlink </th>
+                            <th scope="col"> LongURL </th>
+                            <th scope="col"> Update Link </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr bgcolor="#B0EEEC">
+                            <th scope="row">
+                                <%= shortURL %>
+                            </th>
+                            <td>
+                                <form method="POST" action="/urls/<%=shortURL%>">
+                                    <input type="text" name="NewURL" value=<%=longURL %>>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/urls" method="POST">
+                                    <input type="submit" class="btn btn-success" value="Update">
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </div>
+            </table>
+        </div>
     </p>
 </body>
 

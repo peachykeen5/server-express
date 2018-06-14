@@ -16,6 +16,15 @@ app.set("view engine", "ejs");
 function generateRandomString() {
     var shortID = Math.random().toString(36).substr(2, 6);
     return shortID;
+};
+
+
+function findUserByEmail(email) {
+    for (id in users) {
+        if (email === users[id]['email']) {
+            return user[id];
+        }
+    }
 }
 
 var urlDatabase = {
@@ -39,12 +48,20 @@ const users = {
 app.get("/urls", (req, res) => {
     let templateVars = {
         urls: urlDatabase,
-        username: req.cookies["username"],
+        user: users[req.cookies["user_id"]],
     };
     res.render("urls_index", templateVars);
 });
 
+app.get("/urls/login", (req, res) => {
+    res.render("urls_login");
+});
+
 app.get("/urls/new", (req, res) => {
+    let templateVars = {
+        urls: urlDatabase,
+        user: users[req.cookies["user_id"]],
+    };
     res.render("urls_new");
 });
 
@@ -53,7 +70,7 @@ app.get("/urls/:id", (req, res) => {
     let templateVars = {
         shortURL: req.params.id,
         longURL: longURL,
-        username: req.cookies["username"],
+        user: users[req.cookies["user_id"]],
     };
     res.render("urls_show", templateVars);
 });
@@ -82,17 +99,21 @@ app.post("/register", (req, res) => {
     for (email in users) {
         if (email === users[email]["email"]) {
             res.statusCode = 400;
+        } else {
+            users[id] = {
+                id: id,
+                email: email,
+                password: password
+            }
+            res.cookie("user_id", id)
+            res.redirect("/urls");
         }
-        console.log("slkdjfdf");
     }
-    console.log("123123");
-    res.cookie("user_id", id)
-    res.redirect("/urls");
 });
 
 app.post("/login", (req, res) => {
-    var username = req.body.username;
-    res.cookie('username', username);
+    let user = (req.body.user_id)
+    res.cookie('user_id', user);
     res.redirect("/urls");
 });
 
@@ -117,8 +138,8 @@ app.post("/urls/:id", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-    res.clearCookie("username");
-    res.redirect("/urls");
+    res.clearCookie("user_id", users);
+    res.redirect("/urls/login");
 });
 
 app.listen(PORT, () => {

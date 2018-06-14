@@ -10,11 +10,17 @@
 </head>
 
 <body style="font-size:20px; padding:50px;">
-    <form action="/urls" method="POST" style="margin:150px;">
-        <label for="longURL">Enter a URL:</label>
-        <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
-        <input type="submit" value="Submit">
-    </form>
+    <div>
+            <form action="/urls" method="POST" style="margin:150px;">
+                <div class="form-group">
+                  <label for="longURL">Enter a URL</label>
+                  <input type="text" class="form-control" id="longURL" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <input type="submit" class="btn btn-info" value="submit"></button>
+              </form>
+</div>
 </body>
+
+
 
 </html>

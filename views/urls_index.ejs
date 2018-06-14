@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="page-header">
+    <div class="page-header" style="font-family: courier">
         <h1>TinyApp <br>
             <small>Where we shrink your link!</small>
         </h1>
@@ -30,7 +30,7 @@
                     <% Object.keys(urls).forEach(function(url) { %>
                         <tr bgcolor="#B0EEEC">
                             <th scope="row">
-                                <%= url %>
+                                <a href= <%= urls[url] %>><%= url %> </a>
                             </th>
                             <td>
                                 <%= urls[url] %>

@@ -75,13 +75,22 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/urls/:id", (req, res) => {
+    let user = req.cookies["user_id"]
+    console.log("user", user);
+    let shortURL = urlDatabase[req.params.id];
+    let urlUser = shortURL["userID"];
     let longURL = urlDatabase[req.params.id];
-    let templateVars = {
-        shortURL: req.params.id,
-        longURL: longURL,
-        user: users[req.cookies["user_id"]],
-    };
-    res.render("urls_show", templateVars);
+    if (user !== urlUser) {
+        console.log("can't edit");
+        res.redirect("/urls")
+    } else {
+        let templateVars = {
+            shortURL: req.params.id,
+            longURL: longURL,
+            user: users[req.cookies["user_id"]],
+        }
+        res.render("urls_show", templateVars);
+    }
 });
 
 app.get("/u/:shortURL", (req, res) => {
@@ -137,9 +146,10 @@ app.post("/urls", (req, res) => {
     let shortURL = generateRandomString();
     urlDatabase[shortURL] = {
         longURL: longURL,
-        userID: req.params.id
+        userID: req.cookies["user_id"]
     };
     res.redirect("/urls/");
+    console.log(urlDatabase);
 });
 
 app.post("/urls/:id/delete", (req, res) => {
@@ -148,9 +158,8 @@ app.post("/urls/:id/delete", (req, res) => {
     let shortURL = urlDatabase[req.params.id];
     let urlUser = shortURL["userID"];
     if (user !== urlUser) {
-        console.log("can't delete");
     } else {
-    delete urlDatabase[req.params.id];
+        delete urlDatabase[req.params.id];
     }
     res.redirect("/urls");
 });
@@ -158,12 +167,11 @@ app.post("/urls/:id/delete", (req, res) => {
 app.post("/urls/:id", (req, res) => {
     let updatedURL = req.body.updatedURL
     urlDatabase[req.params.id].longURL = updatedURL;
-    console.log("test ", urlDatabase);
     res.redirect("/urls");
 });
 
 app.post("/logout", (req, res) => {
-    res.clearCookie("user_id", user);
+    res.clearCookie("user_id");
     res.redirect("/login");
 });
 

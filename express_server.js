@@ -1,6 +1,7 @@
 var express = require("express");
 var cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const bcrypt = require('bcrypt');
 
 var app = express();
 
@@ -114,10 +115,12 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
     let id = generateRandomString();
     let email = req.body.email;
-    let password = req.body.password;
+    let password = req.body.password; // you will probably this from req.params
+    const hashedPassword = bcrypt.hashSync(password, 14);
+    console.log(hashedPassword);
     users[id] = {
         email: email,
-        password: password
+        password: hashedPassword
     };
 
     if (!email || !password) {

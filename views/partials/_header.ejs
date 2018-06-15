@@ -1,18 +1,20 @@
 <p>
     <% if (!locals.user) { %>
 
-        <form action="/login" method="GET">
+        <form action="/login" method="GET" style="margin-left: 50px">
             <input type="submit" value="Login">
         </form>
-        <form action="/register" method="GET">
+        <br>
+        <form action="/register" method="GET" style="margin-left: 50px">
             <input type="submit" value="Register">
         </form>
 
 
         <% } else { %>
-            <%= locals.user_id %>
 
-                <form action="/logout" method="POST">
+           <h6> <%= locals.users %> </h6>
+
+                <form action="/logout" method="POST" style="margin-left: 50px">
                     <input type="submit" value="Logout">
                 </form>
                 <% } %>

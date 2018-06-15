@@ -133,26 +133,37 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-    console.log(req)
-    let longURL = (req.body);
+    let longURL = (req.body.longURL);
     let shortURL = generateRandomString();
-    urlDatabase[shortURL] = longURL["longURL"];
+    urlDatabase[shortURL] = {
+        longURL: longURL,
+        userID: req.params.id
+    };
     res.redirect("/urls/");
 });
 
 app.post("/urls/:id/delete", (req, res) => {
+    let user = req.cookies["user_id"]
+    console.log("user", user);
+    let shortURL = urlDatabase[req.params.id];
+    let urlUser = shortURL["userID"];
+    if (user !== urlUser) {
+        console.log("can't delete");
+    } else {
     delete urlDatabase[req.params.id];
+    }
     res.redirect("/urls");
 });
 
 app.post("/urls/:id", (req, res) => {
-    let newURL = req.body.NewURL
-    urlDatabase[req.params.id] = newURL
+    let updatedURL = req.body.updatedURL
+    urlDatabase[req.params.id].longURL = updatedURL;
+    console.log("test ", urlDatabase);
     res.redirect("/urls");
 });
 
 app.post("/logout", (req, res) => {
-    res.clearCookie("email", users);
+    res.clearCookie("user_id", user);
     res.redirect("/login");
 });
 

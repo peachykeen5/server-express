@@ -34,11 +34,9 @@
                             </th>
                             <td>
                                 <form method="POST" action="/urls/<%=shortURL%>">
-                                    <input type="text" name="NewURL" value=<%=longURL["longURL"] %>>
-                                </form>
+                                    <input type="text" name="updatedURL" value=<%=longURL["longURL"] %>>
                             </td>
                             <td>
-                                <form action="/urls" method="POST">
                                     <input type="submit" class="btn btn-success" value="Update">
                                 </form>
                             </td>

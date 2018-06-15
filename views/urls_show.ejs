@@ -16,36 +16,36 @@
             <small>Where we shrink your link!</small>
         </h1>
     </div>
-    <p>
-        <div style="margin-left: 150px; margin-right:150px;">
-            <table class="table table-bordered">
-                <div>
-                    <thead>
-                        <tr bgcolor="#16A09E">
-                            <th scope="col"> Shortlink </th>
-                            <th scope="col"> LongURL </th>
-                            <th scope="col"> Update Link </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr bgcolor="#B0EEEC">
-                            <th scope="row">
-                                <%= shortURL %>
-                            </th>
-                            <td>
-                                <form method="POST" action="/urls/<%=shortURL%>">
-                                    <input type="text" name="updatedURL" value=<%=longURL["longURL"] %>>
-                            </td>
-                            <td>
-                                    <input type="submit" class="btn btn-success" value="Update">
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </div>
-            </table>
-        </div>
-    </p>
+                    <p>
+                        <div style="margin-left: 150px; margin-right:150px;">
+                            <table class="table table-bordered">
+                                <div>
+                                    <thead>
+                                        <tr bgcolor="#16A09E">
+                                            <th scope="col"> Shortlink </th>
+                                            <th scope="col"> LongURL </th>
+                                            <th scope="col"> Update Link </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr bgcolor="#B0EEEC">
+                                            <th scope="row">
+                                                <%= shortURL %>
+                                            </th>
+                                            <td>
+                                                <form method="POST" action="/urls/<%=shortURL%>">
+                                                    <input type="text" name="updatedURL" value=<%=longURL[ "longURL"] %>>
+                                            </td>
+                                            <td>
+                                                <input type="submit" class="btn btn-success" value="Update">
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                            </table>
+                        </div>
+                    </p>
 </body>
 
 </html>

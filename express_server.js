@@ -1,13 +1,20 @@
 var express = require("express");
-var cookieParser = require("cookie-parser");
+var cookieSession = require('cookie-session')
 const bodyParser = require("body-parser");
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
+
 
 var app = express();
+app.use(cookieSession({
+    name: 'session',
+    keys: [/* secret keys */],
+  
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }))
 
 var PORT = 8080;
 
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -21,18 +28,20 @@ function generateRandomString() {
 
 
 function findUserByEmail(email) {
+    let userData = false;
     for (id in users) {
         if (email === users[id]['email']) {
-            return users[id];
+            userData = users[id];
         }
     }
+    return userData;
 }
 
 function urlsForUserID(userID) {
     const filteredUrls = {};
     for (shortCode in urlDatabase) {
         if (urlDatabase[shortCode].userID === userID) {
-            filteredUrls[shortCode] = urlDatabase[shortCode]//filter out the corresponding URLs
+            filteredUrls[shortCode] = urlDatabase[shortCode] //filter out the corresponding URLs
         }
     }
     return filteredUrls;
@@ -42,12 +51,12 @@ const users = {
     "userRandomID": {
         id: "userRandomID",
         email: "user@example.com",
-        password: "1234"
+        password: bcryptjs.hashSync("1234", 10)
     },
     "user2RandomID": {
         id: "user2RandomID",
         email: "user2@example.com",
-        password: "dishwasher-funk"
+        password: bcryptjs.hashSync("dishwasher-funk", 10)
     }
 }
 
@@ -115,29 +124,24 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
     let id = generateRandomString();
     let email = req.body.email;
-    let password = req.body.password; // you will probably this from req.params
-    const hashedPassword = bcrypt.hashSync(password, 14);
-    console.log(hashedPassword);
-    users[id] = {
-        email: email,
-        password: hashedPassword
-    };
-
+    let password = req.body.password;
+    const hashedPassword = bcryptjs.hashSync(password, 10);
     if (!email || !password) {
         res.statusCode = 400;
-    }
-    for (email in users) {
-        if (email === users[email]["email"]) {
-            res.statusCode = 400;
-        } else {
-            users[id] = {
-                id: id,
-                email: email,
-                password: password
+    } else {
+        for (email in users) {
+            if (email === users[email]["email"]) {
+                res.statusCode = 400;
+            } else {
+                users[id] = {
+                    id: id,
+                    email: req.body.email,
+                    password: hashedPassword,
+                }
+                res.cookie("user_id", id)
             }
-            res.cookie("user_id", id)
-            res.redirect("/urls");
         }
+        res.redirect("/urls");
     }
 });
 
@@ -145,13 +149,26 @@ app.post("/login", (req, res) => {
     let user = findUserByEmail(req.body.email);
     if (!req.body.email || !req.body.password) {
         res.redirect("/login");
-    } else if (req.body.password === user['password']) {
-        res.cookie('user_id', user['id']);
-        res.redirect("/urls");
     } else {
-        res.redirect("/register");
+        if (bcryptjs.compareSync(req.body.password, user.password)) {
+            res.cookie("user_id", id)
+            res.redirect("/urls");
+        } else {
+            res.redirect("/register");
+        }
     }
 });
+
+function findUserByEmail(email) {
+    let userData = false;
+    for (id in users) {
+        if (email === users[id]['email']) {
+            userData = users[id];
+        }
+    }
+    return userData;
+}
+
 
 app.post("/urls", (req, res) => {
     let longURL = (req.body.longURL);

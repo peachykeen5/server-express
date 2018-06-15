@@ -1,24 +1,27 @@
 <p>
     <% if (!locals.user) { %>
-
-        <form action="/login" method="GET" style="margin-left: 50px">
-            <input type="submit" value="Login">
-        </form>
-        <br>
-        <form action="/register" method="GET" style="margin-left: 50px">
-            <input type="submit" value="Register">
-        </form>
-
+        <div class="container">
+            <form action="/login" method="GET">
+                <input type="submit" class="btn-sm btn-info" value="Login">
+            </form>
+            <form action="/register" method="GET">
+                <input type="submit" class="btn-sm btn-success" value="Register">
+            </form>
+        </div>
 
         <% } else { %>
+            <div class="container">
 
-           <h6> <%= locals.users %> </h6>
-
-                <form action="/logout" method="POST" style="margin-left: 50px">
-                    <input type="submit" value="Logout">
+                <form action="/logout" method="POST">
+                    <input type="submit" class="btn-sm btn-info" value="Logout">
                 </form>
+
+                <h4 style="font-family:Trebuchet MS;">
+                    Hello,
+                    <%= locals.user.email %>!
+                </h4>
+
                 <% } %>
 
-
-
+            </div>
 </p>

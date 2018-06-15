@@ -18,6 +18,11 @@
         </h1>
     </div>
     <ul>
+            <% if (!locals.user) { %>
+                <div class="alert alert-warning" style="margin-left: 150px; margin-right:150px">
+                        Please login to view your links
+                      </div>
+                <% } %>
         <div class="container">
             <table class="table table-bordered">
                 <thead>

@@ -11,15 +11,15 @@
 
 <body>
         <% include ./partials/_header %>
-    <div class="page-header" style="font-family: courier; margin-left:150px;">
-        <h1>TinyApp
+    <div class="page-header; container" style="font-family: courier;">
+        <h1 style="font-size: 40px">TinyApp
             <br>
             <small>Where we shrink your link!</small>
         </h1>
     </div>
     <ul>
             <% if (!locals.user) { %>
-                <div class="alert alert-warning" style="margin-left: 150px; margin-right:150px">
+                <div class="container; alert alert-warning">
                         Please login to view your links
                       </div>
                 <% } %>

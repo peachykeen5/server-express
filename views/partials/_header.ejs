@@ -1,5 +1,6 @@
 <p>
     <% if (!locals.user) { %>
+        <br>
         <div class="container">
             <form action="/login" method="GET">
                 <input type="submit" class="btn-sm btn-info" value="Login">
@@ -10,6 +11,7 @@
         </div>
 
         <% } else { %>
+            <br>
             <div class="container">
 
                 <form action="/logout" method="POST">

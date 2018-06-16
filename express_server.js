@@ -108,12 +108,12 @@ var urlDatabase = {
     }
 };
 
-
-app.get("/urls", mustBeLoggedIn, (req, res) => {
-    const urls = urlsForUserID(req.user.id);
-    res.render("urls_index", {
-        urls
-    });
+app.get("/register", (req, res) => {
+    if (req.user) {
+        res.redirect("/urls");
+        return;
+    }
+    res.render("urls_register");
 });
 
 app.get("/login", (req, res) => {
@@ -122,6 +122,13 @@ app.get("/login", (req, res) => {
         return;
     }
     res.render("urls_login");
+});
+
+app.get("/urls", mustBeLoggedIn, (req, res) => {
+    const urls = urlsForUserID(req.user.id);
+    res.render("urls_index", {
+        urls
+    });
 });
 
 app.get("/urls/new", mustBeLoggedIn, (req, res) => {
@@ -134,14 +141,6 @@ app.get("/urls/:shortURL", mustBeLoggedIn, mustOwnUrl, (req, res) => {
 
 app.get("/u/:shortURL", (req, res) => {
     res.redirect(req.longURL.longURL);
-});
-
-app.get("/register", (req, res) => {
-    if (req.user) {
-        res.redirect("/urls");
-        return;
-    }
-    res.render("urls_register");
 });
 
 app.post("/register", (req, res) => {

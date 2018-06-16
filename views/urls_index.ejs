@@ -2,69 +2,69 @@
 <html lang="en">
 
 <head>
-   
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-            crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-            crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
 </head>
 
 <body>
-        <% include ./partials/_header %>
-    <div class="page-header; container" style="font-family: courier;">
-        <h1 style="font-size: 40px">TinyApp
-            <br>
-            <small>Where we shrink your link!</small>
-        </h1>
-    </div>
-    <ul>
+    <% include ./partials/_header %>
+        <div class="page-header; container" style="font-family: courier;">
+            <h1 style="font-size: 40px">TinyApp
+                <br>
+                <small>Where we shrink your link!</small>
+            </h1>
+        </div>
+        <ul>
             <% if (!locals.user) { %>
                 <div class="container; alert alert-warning">
-                        Please login to view your links
-                      </div>
+                    Please login to view your links
+                </div>
                 <% } %>
-        <div class="container">
-            <table class="table table-bordered">
-                <thead>
-                    <tr bgcolor="#16A09E">
-                        <th scope="col"> Shortlink </th>
-                        <th scope="col"> URL </th>
-                        <th scope="col"> Edit Link</th>
-                        <th scope="col"> Remove </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% Object.keys(urls).forEach(function(url) { %>
-                        <tr bgcolor="#B0EEEC">
-                            <th scope="row">
-                                <a href="<%= urls[url]["longURL"] %>">
-                                    <%= url %>
-                                </a>
-                            </th>
-                            <td>
-                                <%= urls[url]["longURL"] %>
-                            </td>
-                            <td>
-                                <form method="GET" action="/urls/<%= url %>/">
-                                    <input type="submit" class="btn btn-info" value="EDIT">
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <form method="POST" action="/urls/<%= url %>/delete">
-                                    <input type="submit" class="btn btn-danger" value="DELETE">
-                                    </button>
-                                </form>
-                                <% }); %>
-                            </td>
-                        </tr>
-                </tbody>
-            </table>
-            <form action="/urls/new" method="get">
-                <input type="submit" class="btn btn-success" value="Create a new shortlink">
-                </button>
-            </form>
-    </ul>
+                    <div class="container">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr bgcolor="#16A09E">
+                                    <th scope="col"> Shortlink </th>
+                                    <th scope="col"> URL </th>
+                                    <th scope="col"> Edit Link</th>
+                                    <th scope="col"> Remove </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% Object.keys(urls).forEach(function(url) { %>
+                                    <tr bgcolor="#B0EEEC">
+                                        <th scope="row">
+                                            <a href="<%= urls[url][" longURL "] %>">
+                                                <%= url %>
+                                            </a>
+                                        </th>
+                                        <td>
+                                            <%= urls[url]["longURL"] %>
+                                        </td>
+                                        <td>
+                                            <form method="GET" action="/urls/<%= url %>/">
+                                                <input type="submit" class="btn btn-info" value="EDIT">
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form method="POST" action="/urls/<%= url %>/delete">
+                                                <input type="submit" class="btn btn-danger" value="DELETE">
+                                                </button>
+                                            </form>
+                                            <% }); %>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                        <form action="/urls/new" method="get">
+                            <input type="submit" class="btn btn-success" value="Create a new shortlink">
+                            </button>
+                        </form>
+        </ul>
 </body>
 
-</html> 
+</html>

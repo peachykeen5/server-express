@@ -23,30 +23,34 @@ app.use(function userMiddleware(req, res, next) {
     next();
 });
 
-app.param('shortURL', function(req, res, next, shortUrl) {
+app.param('shortURL', function (req, res, next, shortUrl) {
     req.shortURL = shortUrl;
     req.longURL = urlDatabase[shortUrl];
     res.locals.shortURL = shortUrl;
     res.locals.longURL = urlDatabase[shortUrl];
-    if(!req.longURL) {
-        res.status('404').send('Unkown URL🤷');
+    if (!req.longURL) {
+        res.status('404').send('Unkown URL 🤷 ');
         return;
     }
     next();
 })
 
 function mustBeLoggedIn(req, res, next) {
-    if(req.user) {
-        next();
+    if (!req.user) {
+        res.status(403).send("You must be logged in to view your links 🤦‍♀️ ");
         return;
+    } else {
+        if (req.user) {
+            next();
+            return;
+        }
     }
-
     res.redirect('/login');
 }
 
 function mustOwnUrl(req, res, next) {
-    if(req.user.id !== req.longURL.userID) {
-        res.status(403).send("Unauthorized...Is this your URL?");
+    if (req.user.id !== req.longURL.userID) {
+        res.status(403).send("Unauthorized 🙅 ...Is this your URL?");
         return;
     }
     next();
@@ -92,7 +96,6 @@ const users = {
         password: bcryptjs.hashSync("dishwasher-funk", 10)
     }
 }
-console.log(users);
 
 var urlDatabase = {
     "b2xVn2": {
@@ -108,10 +111,16 @@ var urlDatabase = {
 
 app.get("/urls", mustBeLoggedIn, (req, res) => {
     const urls = urlsForUserID(req.user.id);
-    res.render("urls_index", { urls });
+    res.render("urls_index", {
+        urls
+    });
 });
 
 app.get("/login", (req, res) => {
+    if (req.user) {
+        res.redirect("/urls");
+        return;
+    }
     res.render("urls_login");
 });
 
@@ -128,6 +137,10 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
+    if (req.user) {
+        res.redirect("/urls");
+        return;
+    }
     res.render("urls_register");
 });
 
@@ -137,7 +150,7 @@ app.post("/register", (req, res) => {
     let password = req.body.password;
     const hashedPassword = bcryptjs.hashSync(password, 10);
     if (!email || !password) {
-        res.statusCode = 400;
+        res.status('400').send('Please enter a valid email address and password 💁‍♀️ ')
     } else {
         for (email in users) {
             if (email === users[email]["email"]) {
@@ -153,21 +166,22 @@ app.post("/register", (req, res) => {
         }
         res.redirect("/urls");
     }
-    //console.log(users)
 });
 
 app.post("/login", (req, res) => {
     let user = findUserByEmail(req.body.email);
     if (!req.body.email || !req.body.password) {
         res.redirect("/login");
+        return;
     } else {
-        if (bcryptjs.compareSync(req.body.password, user.password)) {
-            req.session.user_id = user.id;
-            res.redirect("/urls");
-            return;
-        } else {
-            res.redirect("/register");
+        for (userID in users) {
+            if (req.body.email === users[userID]["email"] && (bcryptjs.compareSync(req.body.password, user.password))) {
+                req.session.user_id = user.id;
+                res.redirect("/urls");
+                return;
+            }
         }
+        res.redirect("/register");
     }
 });
 
@@ -198,5 +212,5 @@ app.post("/logout", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}!`);
+    console.log(`TinyApp listening on port ${PORT}!`);
 });

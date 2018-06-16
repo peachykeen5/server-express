@@ -22,19 +22,19 @@
     <form method="POST" action="/login" style="margin-left:150px; margin-right:150px;">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="email address">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="email address">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" value="password" name="password" placeholder="Password">
+            <input type="password" class="form-control" placeholder="password" name="password" placeholder="Password">
         </div>
         <input type="submit" class="btn btn-info" name="login" value="Login">
         </button>
     </form>
     <br>
-    <div class="container">
-            <p class="small">Don't have an account? You can register here:</p>
-          </div>
+    <div class="container" style="margin-left:100px">
+        <p class="small">Don't have an account? You can register here:</p>
+    </div>
     <form action="/register" method="GET" style="margin-left: 50px">
         <input type="submit" value="Register" class="btn btn-success" style="margin-left:100px;">
     </form>
